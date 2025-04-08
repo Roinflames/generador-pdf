@@ -4,7 +4,7 @@ from seqdiag import parser, builder, drawer
 diagram_definition = """
 seqdiag {
     Cliente -> Servidor [label = "Solicitud"];
-    Servidor --> Cliente [label = "Respuesta"];
+    Servidor -> Cliente [label = "Respuesta"];
 }
 """
 
@@ -12,7 +12,7 @@ seqdiag {
 tree = parser.parse_string(diagram_definition)
 diagram = builder.ScreenNodeBuilder.build(tree)
 
-# Dibujar el diagrama y guardarlo como PDF
-draw = drawer.DiagramDraw('PNG', diagram, filename="diagrama_secuencia.png")
+# Dibujar el diagrama y guardarlo como imagen PNG
+draw = drawer.DiagramDraw('PNG', diagram)
 draw.draw()
-draw.save()
+draw.save("diagrama_secuencia.png")
