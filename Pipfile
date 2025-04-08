@@ -9,6 +9,7 @@ pdfkit = "*"
 seqdiag = "*"
 reportlab = "*"
 pillow = "*"
+graphviz = "*"
 
 [dev-packages]
 
