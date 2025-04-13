@@ -55,14 +55,15 @@ def generar_pdf():
         os.remove(pdf_path)
 
     # Genera el PDF desde el contenido HTML renderizado
-    pdf = pdfkit.from_string(html_contenido, pdf_path, options=options)
+    pdfkit.from_string(html_contenido, pdf_path, options=options)
 
-    # Devuelve el archivo PDF al usuario
-    # return send_file(pdf_path, as_attachment=True)
-    
+    # Abre el archivo PDF y lee su contenido en binario
+    with open(pdf_path, 'rb') as f:
+        pdf = f.read()
+
     # Crear la respuesta PDF
     response = make_response(pdf)
     response.headers['Content-Type'] = 'application/pdf'
-    response.headers['Content-Disposition'] = 'inline; filename=informe_contactos.pdf'
+    response.headers['Content-Disposition'] = 'inline; filename=delega_poder.pdf'
 
     return response

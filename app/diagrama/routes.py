@@ -82,7 +82,7 @@ def diagrama_view():
 
 @diagrama_bp.route('/generar_pdf_diagrama')
 def generar_pdf_diagrama():
-
+    # Contenido HTML con las imágenes y la firma
     html_content = f"""
     <!DOCTYPE html>
     <html>
@@ -95,7 +95,10 @@ def generar_pdf_diagrama():
     </body>
     </html>
     """
+    
+    # Ruta donde se guardará el archivo PDF generado
     pdf_path = os.path.join(pdf_dir, 'diagrama_flujo.pdf')
+    
     options = {
         'page-size': 'Letter',
         'encoding': 'UTF-8',
@@ -103,13 +106,18 @@ def generar_pdf_diagrama():
     }
 
     try:
-        pdf = pdfkit.from_string(html_content, pdf_path, options=options)
-        # return send_file(pdf_path, as_attachment=True)
-    
-        # Crear la respuesta PDF
+        # Genera el archivo PDF y lo guarda en pdf_path
+        pdfkit.from_string(html_content, pdf_path, options=options)
+        
+        # Abre el archivo PDF y lee su contenido en binario
+        with open(pdf_path, 'rb') as f:
+            pdf = f.read()
+        
+        # Crea la respuesta con el archivo PDF
         response = make_response(pdf)
         response.headers['Content-Type'] = 'application/pdf'
-        response.headers['Content-Disposition'] = 'inline; filename=informe_contactos.pdf'
+        response.headers['Content-Disposition'] = 'inline; filename=diagrama_flujo.pdf'
+        
+        return response
     except Exception as e:
         return f"Error generando PDF: {str(e)}"
-

@@ -63,7 +63,7 @@ def generar_pdf():
         'enable-local-file-access': None  # Permite acceder a archivos locales en la plantilla
     }
 
-    # Generar PDF a partir del HTML renderizado
+    # GenerarPDF a partir del HTML renderizado
     pdf = pdfkit.from_string(html_renderizado, False, options=options)
 
     # Crear la respuesta PDF

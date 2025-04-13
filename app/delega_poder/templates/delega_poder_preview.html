@@ -16,7 +16,7 @@
     <p><strong>RUT del Demandado:</strong> {{ rut_demandado }}</p>
 
     <!-- Botón para generar el PDF -->
-    <form action="{{ url_for('delega_poder.generar_pdf') }}" method="get">
+    <form action="{{ url_for('delega_poder.generar_pdf') }}" method="get" target="_blank">
         <button type="submit">Generar PDF</button>
     </form>
 </body>

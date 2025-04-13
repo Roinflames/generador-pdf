@@ -4,21 +4,21 @@ import jinja2
 import pdfkit
 import os
 
-# Determina la ruta del template dependiendo de si estás en un PC o notebook
-machine = 'PC'  # Cambia a 'notebook' si estás en el notebook
+# Ruta base del módulo reconocimiento
+path = os.path.dirname(__file__)
 
-if machine == 'notebook':
-    path = 'C:/Users/rodre/source/repos/generador-pdf/01_reconocimiento/'
-else:
-    path = 'C:/Users/Rodrigo/Documents/Code/generador-pdf/01_reconocimiento/'
+# Ruta del template
+ruta_template = os.path.join(path, 'templates', 'template.html')
 
 # Función para crear el PDF
 def crea_pdf(ruta_template, info, rutacss=''):
-    nombre_template = ruta_template.split('/')[-1]
-    ruta_template = ruta_template.replace(nombre_template, '')
+    # Usamos os.path.join para manejar las rutas correctamente
+    template_dir = os.path.dirname(ruta_template)
+    template_name = os.path.basename(ruta_template)
 
-    env = jinja2.Environment(loader=jinja2.FileSystemLoader(ruta_template))
-    template = env.get_template(nombre_template)
+    env = jinja2.Environment(loader=jinja2.FileSystemLoader(template_dir))
+    template = env.get_template(template_name)
+    
     html = template.render(info)
 
     options = {
@@ -33,7 +33,8 @@ def crea_pdf(ruta_template, info, rutacss=''):
     config = pdfkit.configuration(wkhtmltopdf='C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe')
 
     # Ruta de salida del archivo PDF
-    ruta_salida = path + 'reconocimiento_python.pdf'
+    os.makedirs(os.path.join(path, 'static'), exist_ok=True)
+    ruta_salida = os.path.join(path, 'static', 'reconocimiento_python.pdf')
 
     # Genera el PDF desde el HTML renderizado
     pdfkit.from_string(html, ruta_salida, css=rutacss, options=options, configuration=config)
@@ -55,12 +56,15 @@ def reconocimiento_preview():
         "fecha": "2023-10-01"
     }
 
-    # Define la ruta de la plantilla
-    ruta_template = path + 'template.html'
+    # Usamos os.path.join para manejar las rutas correctamente
+    ruta_template = os.path.join(path, 'templates', 'template.html')
 
     # Renderiza la plantilla de reconocimiento para vista previa
-    env = jinja2.Environment(loader=jinja2.FileSystemLoader(path))
-    template = env.get_template('template.html')
+    template_dir = os.path.dirname(ruta_template)
+    template_name = os.path.basename(ruta_template)
+
+    env = jinja2.Environment(loader=jinja2.FileSystemLoader(template_dir))
+    template = env.get_template(template_name)
     html = template.render(info)
 
     # Devuelve el HTML renderizado como una vista previa en la página
@@ -76,8 +80,8 @@ def generar_pdf():
         "fecha": "2023-10-01"
     }
 
-    # Define la ruta de la plantilla
-    ruta_template = path + 'template.html'
+    # Usamos os.path.join para manejar las rutas correctamente
+    ruta_template = os.path.join(path, 'templates', 'template.html')
 
     # Llama a la función para crear el PDF
     pdf_path = crea_pdf(ruta_template, info)
