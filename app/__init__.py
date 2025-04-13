@@ -39,6 +39,6 @@ def create_app():
     app.register_blueprint(diagrama_bp, url_prefix='/diagrama')
     app.register_blueprint(escritura_bp, url_prefix='/escritura')
     app.register_blueprint(liquidacion_bp, url_prefix='/liquidacion')
-    app.register_blueprint(delega_bp, url_prefix='/delega')
+    app.register_blueprint(delega_bp, url_prefix='/delega_poder')
 
     return app

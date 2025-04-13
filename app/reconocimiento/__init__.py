@@ -1,5 +1,5 @@
 from flask import Blueprint
 
-reconocimiento = Blueprint('reconocimiento', __name__)
+reconocimiento = Blueprint('reconocimiento', __name__, template_folder='templates')
 
-# from . import routes
+from . import routes

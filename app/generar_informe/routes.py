@@ -3,4 +3,4 @@ from . import generar_informe
 
 @generar_informe.route('/generar_informe')
 def generar_informe_view():
-    return render_template('templates/template.html')
+    return render_template('generar_informe.html')
