@@ -1,10 +1,9 @@
-<!-- plantilla_compraventa.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Escritura de Compraventa</title>
+    <title>Vista Previa - Escritura de Compraventa</title>
     <style>
         body {
             font-size: 12pt;
@@ -20,6 +19,8 @@
     </style>
 </head>
 <body>
+    <h1>Vista Previa: Escritura de Compraventa</h1>
+
     <h1>ESCRITURA DE COMPRAVENTA</h1>
     <p>En {{ ciudad }}, a {{ dia }} de {{ mes }} de {{ anio }}, ante mí, {{ notario }}, Notario Público de {{ ciudad }}, comparecen:</p>
     
@@ -59,5 +60,8 @@
     <p>_______________________________<br>
     {{ comprador_nombre }} (Comprador)</p>
 
+
+    <!-- Enlace fuera del contenido del documento para generar el PDF -->
+    <a href="{{ url_for('escritura_compraventa.generar_pdf') }}" target="_blank">Generar PDF</a>
 </body>
 </html>
