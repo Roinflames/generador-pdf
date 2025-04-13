@@ -3,6 +3,10 @@ from app.models import User
 
 app = create_app()
 
+with app.app_context():
+    db.create_all()
+    print("✅ Base de datos creada")
+    
 @app.cli.command("init-db")
 def init_db():
     db.create_all()
