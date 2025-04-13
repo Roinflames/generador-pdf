@@ -1,5 +1,5 @@
 # en routes.py o el archivo de rutas correspondiente
-from flask import render_template, send_file, redirect, url_for
+from flask import render_template, make_response, redirect, url_for
 from . import delega_bp
 import os
 import pdfkit
@@ -55,7 +55,14 @@ def generar_pdf():
         os.remove(pdf_path)
 
     # Genera el PDF desde el contenido HTML renderizado
-    pdfkit.from_string(html_contenido, pdf_path, options=options)
+    pdf = pdfkit.from_string(html_contenido, pdf_path, options=options)
 
     # Devuelve el archivo PDF al usuario
-    return send_file(pdf_path, as_attachment=True)
+    # return send_file(pdf_path, as_attachment=True)
+    
+    # Crear la respuesta PDF
+    response = make_response(pdf)
+    response.headers['Content-Type'] = 'application/pdf'
+    response.headers['Content-Disposition'] = 'inline; filename=informe_contactos.pdf'
+
+    return response

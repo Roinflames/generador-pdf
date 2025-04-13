@@ -1,4 +1,4 @@
-from flask import render_template, send_file, redirect, url_for
+from flask import render_template, make_response, redirect, url_for
 from . import diagrama_bp
 import graphviz
 import pdfkit
@@ -103,8 +103,13 @@ def generar_pdf_diagrama():
     }
 
     try:
-        pdfkit.from_string(html_content, pdf_path, options=options)
-        return send_file(pdf_path, as_attachment=True)
+        pdf = pdfkit.from_string(html_content, pdf_path, options=options)
+        # return send_file(pdf_path, as_attachment=True)
+    
+        # Crear la respuesta PDF
+        response = make_response(pdf)
+        response.headers['Content-Type'] = 'application/pdf'
+        response.headers['Content-Disposition'] = 'inline; filename=informe_contactos.pdf'
     except Exception as e:
         return f"Error generando PDF: {str(e)}"
 

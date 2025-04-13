@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vista Previa - Informe de Contactos</title>
+</head>
+<body>
+    <h1>Vista Previa del Informe de Contactos</h1>
+    
+    <div>
+        <!-- Aquí se muestra la tabla de contactos renderizada -->
+        {{ contenido | safe }}
+    </div>
+
+    <p><a href="{{ url_for('generar_informe.generar_pdf') }}" target="_blank">Generar PDF</a></p>
+</body>
+</html>
