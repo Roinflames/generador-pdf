@@ -11,6 +11,12 @@ reportlab = "*"
 pillow = "*"
 graphviz = "*"
 
+flask = "*"
+flask-login = "*"
+flask-wtf = "*"
+wtforms = "*"
+flask-sqlalchemy = "*"
+
 [dev-packages]
 
 [requires]
