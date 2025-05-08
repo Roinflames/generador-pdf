@@ -6,7 +6,8 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(150), unique=True, nullable=False)
     password_hash = db.Column(db.String(128), nullable=False)
-
+    # roles = db.Column(db.String(50), nullable=False)  # TODO 'admin', 'user', etc. basico, medio, avanzado
+    
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
 
