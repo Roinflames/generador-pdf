@@ -31,6 +31,7 @@ def create_app():
     from .escritura_compraventa import escritura_bp as escritura_bp
     from .liquidacion_de_persona_natural import liquidacion_bp as liquidacion_bp
     from .delega_poder import delega_bp as delega_bp
+    from .opone_excepciones import opone_excepciones_bp as opone_excepciones_bp
 
     app.register_blueprint(auth_bp)
     app.register_blueprint(main_bp)
@@ -40,5 +41,6 @@ def create_app():
     app.register_blueprint(escritura_bp, url_prefix='/escritura')
     app.register_blueprint(liquidacion_bp, url_prefix='/liquidacion')
     app.register_blueprint(delega_bp, url_prefix='/delega_poder')
+    app.register_blueprint(opone_excepciones_bp, url_prefix='/opone_excepciones')
 
     return app
