@@ -38,9 +38,10 @@ def generar_pdf():
     html = render_template('opone_excepciones.html', **data)
     pdf = pdfkit.from_string(html, False)
 
+    # TODO filename=opone_excepciones con nomenclatura de la causa
     # Generar el PDF
     response = make_response(pdf)
     response.headers['Content-Type'] = 'application/pdf'
-    response.headers['Content-Disposition'] = 'inline; filename=escritura_compraventa.pdf'
+    response.headers['Content-Disposition'] = 'inline; filename=opone_excepciones.pdf'
 
     return response
