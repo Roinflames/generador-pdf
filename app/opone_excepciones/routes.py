@@ -11,7 +11,7 @@ def opone_excepciones_view():
         "caratulados": "BANCO DE CRÉDITO E INVERSIONES / SÁEZ",
         "rol_causa": "C-4044-2025", # no encontrado
         "argumento_excepcion": "la firma del suscriptor no ha sido autorizada ante Notario Público de conformidad a la ley", # no encontrado
-        "ABG_PATROCINADOR" : "EDUARDO MAURICIO LARA QUIROZ",
+        "ABG_PATROCINADOR" : "Eduardo Mauricio Lara Quiroz",
         "ABG_CEDULA" : "17.314.741-4",
         "DIRE_ESTUDIO" : "calle la concepcion 266, oficina 804, comuna de providencia, región metropolitana", # no encontrado
         "ABG_EMAIL" : "jefe.civil@alfaromadariaga.cl"
@@ -28,7 +28,7 @@ def generar_pdf():
         "caratulados": "BANCO DE CRÉDITO E INVERSIONES / SÁEZ",
         "rol_causa": "C-4044-2025", # no encontrado
         "argumento_excepcion": "la firma del suscriptor no ha sido autorizada ante Notario Público de conformidad a la ley", # no encontrado
-        "ABG_PATROCINADOR" : "EDUARDO MAURICIO LARA QUIROZ",
+        "ABG_PATROCINADOR" : "Eduardo Mauricio Lara Quiroz",
         "ABG_CEDULA" : "17.314.741-4",
         "DIRE_ESTUDIO" : "calle la concepcion 266, oficina 804, comuna de providencia, región metropolitana", # no encontrado
         "ABG_EMAIL" : "jefe.civil@alfaromadariaga.cl"
