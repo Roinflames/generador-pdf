@@ -4,13 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Opone Excepciones</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <style>
         /* Estilos generales */
         body {
-            font-family: "Times New Roman", serif;
-            font-size: 14pt;
-            margin: 3cm 3cm 3cm 3cm;
-            line-height: 1.5;
+            /* font-family: "Times New Roman", serif; */
+            /* font-family: Arial, sans-serif; */
+            font-family: 'Roboto', sans-serif;
+            font-size: 13pt;
+            margin: 6cm 2.5cm 0cm 2.5cm;
+            line-height: 1.7;
             text-align: justify;
             color: #000000;
         }
@@ -78,6 +81,8 @@
 </head>
 
 <body>
+    <br>
+    <br>
     <p><strong>En lo principal:</strong> Opone excepciones. -
         <strong>En el primer otrosí:</strong> Medios de prueba. -
         <strong>En el segundo otrosí:</strong> Objeta documentos. -
@@ -94,7 +99,7 @@
 
     <p>&emsp;&emsp;&emsp;He sido demandado, ejecutivamente para que pague la suma demandada más intereses, gastos y costas, según constan
         en autos.</p>
-
+    
     <p>&emsp;&emsp;&emsp;Sin perjuicio de que el lugar donde fui notificado no corresponde a mi domicilio, y a fin de evitar dilaciones
         innecesarias,
         vengo en oponer la siguiente excepción a la demanda, respecto del pagaré cobrado en autos:</p>
@@ -265,7 +270,6 @@
         en señal de aceptación, correo electrónico {{ ABG_EMAIL }}</p>
 
     <a href="{{ url_for('opone_excepciones.generar_pdf') }}" target="_blank">Generar PDF</a>
-
 </body>
 
 </html>
