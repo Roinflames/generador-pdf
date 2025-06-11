@@ -22,3 +22,9 @@ C:
 T:Tesorería
 F:Familia
 
+# Nuevo al 11/06/25
+## Registro de tareas, gestión de tramitador
+Relacionado a Web Scrapping
+AyM = Estudio + External Service : Cobranza - Agenda - Etc... + PYME
+CRM = LexONE
+Hans usa Symphony
