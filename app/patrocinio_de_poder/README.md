@@ -1,0 +1,3 @@
+TODO:
+
+Categorizar documentos

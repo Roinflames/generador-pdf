@@ -3,6 +3,7 @@ from flask import render_template, make_response, redirect, url_for
 from . import delega_bp
 import os
 import pdfkit
+import json
 
 # Directorio donde guardar el archivo temporal
 pdf_dir = os.path.join(os.path.dirname(__file__), 'static', 'pdfs')
@@ -11,15 +12,10 @@ os.makedirs(pdf_dir, exist_ok=True)
 # Ruta para mostrar la vista previa
 @delega_bp.route('/delega_poder')
 def delega_poder_view():
-    # Datos a pasar a la plantilla
-    data = {
-        "tribunal": "S.J.L. En lo Civil de Santiago (25º)",
-        "abogado_patrocinante": "EDUARDO MAURICIO LARA QUIROZ",
-        "caratula": "“TORRES/BANCO DE CHILE”",
-        "rol": "Rol C-7440-2024",
-        "demandado": "BASTIÁN ADONIS RAMÍREZ ROCHA",
-        "rut_demandado": "19.499.895-3",
-    }
+    json_path = os.path.join(delega_bp.root_path, 'static', 'data', 'delega_poder_data.json')
+    
+    with open(json_path, 'r', encoding='utf-8') as f:
+        data = json.load(f)
 
     # Renderiza la plantilla 'delega_poder.html' con los datos
     return render_template('delega_poder_preview.html', **data)
@@ -27,15 +23,10 @@ def delega_poder_view():
 # Ruta para generar el PDF
 @delega_bp.route('/generar_pdf')
 def generar_pdf():
-    # Datos a pasar a la plantilla
-    data = {
-        "tribunal": "S.J.L. En lo Civil de Santiago (25º)",
-        "abogado_patrocinante": "EDUARDO MAURICIO LARA QUIROZ",
-        "caratula": "“TORRES/BANCO DE CHILE”",
-        "rol": "Rol C-7440-2024",
-        "demandado": "BASTIÁN ADONIS RAMÍREZ ROCHA",
-        "rut_demandado": "19.499.895-3",
-    }
+    json_path = os.path.join(delega_bp.root_path, 'static', 'data', 'delega_poder_data.json')
+
+    with open(json_path, 'r', encoding='utf-8') as f:
+        data = json.load(f)
 
     # Renderiza la plantilla 'delega_poder.html' con los datos
     html_contenido = render_template('delega_poder.html', **data)
