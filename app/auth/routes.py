@@ -1,42 +1,69 @@
-from flask import render_template, redirect, url_for, flash, request
-from flask_login import login_user, logout_user, login_required
+from flask import request, jsonify
+from flask_login import login_user, logout_user, login_required, current_user
 from . import auth
 from ..models import User
 from .. import db
-from .forms import LoginForm 
 
-@auth.route('/login', methods=['GET', 'POST'])
-def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        username = form.username.data
-        password = form.password.data
-        user = User.query.filter_by(username=username).first()
-        if user and user.check_password(password):
-            login_user(user)
-            return redirect(url_for('main.index'))
-        else:
-            flash('Nombre de usuario o contraseña incorrectos.')
-    return render_template('login.html', form=form)
+# Registro de usuario
+@auth.route('/api/register', methods=['POST'])
+def api_register():
+    data = request.get_json()
 
-@auth.route('/logout')
+    if not data:
+        return jsonify({"error": "Debes enviar los datos en formato JSON"}), 400
+
+    username = data.get('username')
+    password = data.get('password')
+
+    if not username or not password:
+        return jsonify({"error": "Usuario y contraseña requeridos"}), 400
+
+    if User.query.filter_by(username=username).first():
+        return jsonify({"error": "El nombre de usuario ya existe"}), 400
+
+    user = User(username=username)
+    user.set_password(password)
+    db.session.add(user)
+    db.session.commit()
+
+    return jsonify({"message": "Usuario registrado correctamente"}), 201
+
+# Inicio de sesiónx||
+@auth.route('/api/login', methods=['POST'])
+def api_login():
+    data = request.get_json()
+
+    if not data:
+        return jsonify({"error": "Debes enviar los datos en formato JSON"}), 400
+
+    username = data.get('username')
+    password = data.get('password')
+
+    if not username or not password:
+        return jsonify({"error": "Usuario y contraseña requeridos"}), 400
+
+    user = User.query.filter_by(username=username).first()
+
+    if user is None or not user.check_password(password):
+        return jsonify({"error": "Credenciales inválidas"}), 401
+
+    login_user(user)
+    return jsonify({"message": "Inicio de sesión exitoso", "username": user.username}), 200
+
+# Cierre de sesión
+@auth.route('/api/logout', methods=['POST'])
 @login_required
-def logout():
+def api_logout():
     logout_user()
-    return redirect(url_for('auth.login'))
+    return jsonify({"message": "Sesión cerrada correctamente"}), 200
 
-@auth.route('/register', methods=['GET', 'POST'])
-def register():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        if User.query.filter_by(username=username).first():
-            flash('El nombre de usuario ya está registrado.')
-        else:
-            user = User(username=username)
-            user.set_password(password)
-            db.session.add(user)
-            db.session.commit()
-            flash('Usuario registrado exitosamente. Ahora puedes iniciar sesión.')
-            return redirect(url_for('auth.login'))
-    return render_template('register.html')
+# Verificar si el usuario está autenticado
+@auth.route('/api/session', methods=['GET'])
+def api_session():
+    if current_user.is_authenticated:
+        return jsonify({
+            "authenticated": True,
+            "username": current_user.username
+        })
+    else:
+        return jsonify({"authenticated": False}), 200

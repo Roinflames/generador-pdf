@@ -1,18 +1,20 @@
-# en routes.py o el archivo de rutas correspondiente
-from flask import render_template, make_response, redirect, url_for
+from flask import jsonify, make_response
 from . import delega_bp
+import jinja2
 import os
 import pdfkit
 
-# Directorio donde guardar el archivo temporal
-pdf_dir = os.path.join(os.path.dirname(__file__), 'static', 'pdfs')
+# Directorio base del módulo
+path = os.path.dirname(__file__)
+pdf_dir = os.path.join(path, 'static', 'pdfs')
+template_path = os.path.join(path, 'templates', 'delega_poder.html')
+
+# Asegura que el directorio de salida exista
 os.makedirs(pdf_dir, exist_ok=True)
 
-# Ruta para mostrar la vista previa
-@delega_bp.route('/delega_poder')
-def delega_poder_view():
-    # Datos a pasar a la plantilla
-    data = {
+# Datos de ejemplo (puedes reemplazar por request.json en POST si quieres personalizar)
+def get_data():
+    return {
         "tribunal": "S.J.L. En lo Civil de Santiago (25º)",
         "abogado_patrocinante": "EDUARDO MAURICIO LARA QUIROZ",
         "caratula": "“TORRES/BANCO DE CHILE”",
@@ -21,49 +23,49 @@ def delega_poder_view():
         "rut_demandado": "19.499.895-3",
     }
 
-    # Renderiza la plantilla 'delega_poder.html' con los datos
-    return render_template('delega_poder_preview.html', **data)
+# ✅ Vista previa (HTML renderizado como string para React)
+@delega_bp.route('/api/delega_poder/preview')
+def delega_poder_preview():
+    data = get_data()
+    template_dir = os.path.dirname(template_path)
+    template_name = os.path.basename(template_path)
 
-# Ruta para generar el PDF
-@delega_bp.route('/generar_pdf')
+    env = jinja2.Environment(loader=jinja2.FileSystemLoader(template_dir))
+    template = env.get_template(template_name)
+    html = template.render(data)
+
+    return jsonify({"html": html})
+
+# ✅ Generación de PDF desde React
+@delega_bp.route('/api/delega_poder/generar_pdf')
 def generar_pdf():
-    # Datos a pasar a la plantilla
-    data = {
-        "tribunal": "S.J.L. En lo Civil de Santiago (25º)",
-        "abogado_patrocinante": "EDUARDO MAURICIO LARA QUIROZ",
-        "caratula": "“TORRES/BANCO DE CHILE”",
-        "rol": "Rol C-7440-2024",
-        "demandado": "BASTIÁN ADONIS RAMÍREZ ROCHA",
-        "rut_demandado": "19.499.895-3",
-    }
+    data = get_data()
+    template_dir = os.path.dirname(template_path)
+    template_name = os.path.basename(template_path)
 
-    # Renderiza la plantilla 'delega_poder.html' con los datos
-    html_contenido = render_template('delega_poder.html', **data)
+    env = jinja2.Environment(loader=jinja2.FileSystemLoader(template_dir))
+    template = env.get_template(template_name)
+    html_contenido = template.render(data)
 
-    # Opciones para pdfkit (como tamaño de página, etc.)
     options = {
         'page-size': 'Letter',
         'encoding': 'UTF-8',
-        'enable-local-file-access': None  # Esto es para permitir que pdfkit acceda a archivos locales si es necesario
+        'enable-local-file-access': None
     }
 
-    # Ruta del archivo PDF
     pdf_path = os.path.join(pdf_dir, 'delega_poder.pdf')
 
-    # Elimina el archivo PDF anterior si ya existe
     if os.path.exists(pdf_path):
         os.remove(pdf_path)
 
-    # Genera el PDF desde el contenido HTML renderizado
-    pdfkit.from_string(html_contenido, pdf_path, options=options)
+    # Cambia esta ruta si estás en Mac o Linux
+    config = pdfkit.configuration(wkhtmltopdf='/usr/local/bin/wkhtmltopdf')
+    pdfkit.from_string(html_contenido, pdf_path, options=options, configuration=config)
 
-    # Abre el archivo PDF y lee su contenido en binario
     with open(pdf_path, 'rb') as f:
         pdf = f.read()
 
-    # Crear la respuesta PDF
     response = make_response(pdf)
     response.headers['Content-Type'] = 'application/pdf'
     response.headers['Content-Disposition'] = 'inline; filename=delega_poder.pdf'
-
     return response

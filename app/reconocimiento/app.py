@@ -1,5 +1,10 @@
 import jinja2
 import pdfkit
+from flask_cors import CORS
+
+# justo después de crear app
+app = Flask(__name__)
+CORS(app)
 
 machine = 'PC'  # Cambia a 'notebook' si estás en el notebook
 

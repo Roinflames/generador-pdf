@@ -17,7 +17,6 @@ def opone_excepciones_view():
         "ABG_EMAIL" : "jefe.civil@alfaromadariaga.cl"
     }
 
-    return render_template('opone_excepciones_preview.html', **data)
 
 @opone_excepciones_bp.route('/generar_pdf')
 def generar_pdf():

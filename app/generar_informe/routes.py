@@ -36,7 +36,6 @@ def generar_informe_view():
     html_renderizado = template.render(fecha=fecha_actual, contactos=contactos)
     
     # Devolver la vista previa renderizada en HTML
-    return render_template('generar_informe_preview.html', contenido=html_renderizado)
 
 @generar_informe.route('/generar_pdf')
 def generar_pdf():

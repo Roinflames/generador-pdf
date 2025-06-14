@@ -78,7 +78,6 @@ def diagrama_view():
     dot.render(filename=os.path.join(image_dir, 'flowchart'), format='png', cleanup=True)
 
     # return render_template('diagrama_preview.html', image_path=image_path)
-    return render_template('diagrama_preview.html', image_url=image_url, firma_url=firma_url)
 
 @diagrama_bp.route('/generar_pdf_diagrama')
 def generar_pdf_diagrama():

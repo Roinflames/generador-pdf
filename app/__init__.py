@@ -1,12 +1,13 @@
 from flask import Flask
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
 
 db = SQLAlchemy()
 login_manager = LoginManager()
 login_manager.login_view = 'auth.login'
 
-from app.models import User  # asegúrate que la ruta sea correcta
+from app.models import User
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -17,8 +18,11 @@ def create_app():
     app.secret_key = 'tu_clave_secreta'
 
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # opcional pero recomendado
-    
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+    # 👇 ESTA ES LA LÍNEA CLAVE PARA CORS
+    CORS(app, origins=["http://localhost:5173"], supports_credentials=True)
+
     db.init_app(app)
     login_manager.init_app(app)
 

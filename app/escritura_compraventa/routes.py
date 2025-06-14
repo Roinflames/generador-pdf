@@ -25,7 +25,6 @@ def escritura_compraventa_view():
     }
 
     # Renderizar la plantilla para vista previa en HTML
-    return render_template('plantilla_compraventa_preview.html', **data)
 
 @escritura_bp.route('/generar_pdf')
 def generar_pdf():
