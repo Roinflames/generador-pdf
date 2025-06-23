@@ -5,7 +5,7 @@ from ..models import User
 from .. import db
 from .forms import LoginForm 
 
-@auth.route('/login', methods=['GET', 'POST'])
+@auth.route('/api/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
@@ -19,13 +19,13 @@ def login():
             flash('Nombre de usuario o contraseña incorrectos.')
     return render_template('login.html', form=form)
 
-@auth.route('/logout')
+@auth.route('/api/logout')
 @login_required
 def logout():
     logout_user()
     return redirect(url_for('auth.login'))
 
-@auth.route('/register', methods=['GET', 'POST'])
+@auth.route('/api/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
         username = request.form['username']

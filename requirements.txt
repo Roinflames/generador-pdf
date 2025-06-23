@@ -1,0 +1,12 @@
+Flask
+Flask-Login
+Flask-Migrate
+Flask-SQLAlchemy
+Flask-WTF
+email-validator
+WTForms
+Flask-Cors
+reportlab
+xhtml2pdf
+pdfkit
+xhtml2pdf
