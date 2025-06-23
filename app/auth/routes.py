@@ -1,10 +1,21 @@
 from flask import render_template, redirect, url_for, flash, request, jsonify
-from flask_login import login_user, logout_user, login_required
+from flask_login import login_user, logout_user, login_required, current_user
 from . import auth
 from ..models import User
 from .. import db
 from .forms import LoginForm 
 
+@auth.route('/api/me')
+def me():
+    if current_user.is_authenticated:
+        return {
+            "authenticated": True,
+            "username": current_user.username,
+            "user_id": current_user.id
+        }
+    else:
+        return {"authenticated": False}, 401
+    
 @auth.route('/api/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'GET':

@@ -1,5 +1,7 @@
 *.pdf
 *.docx
-*.json
+app/*.json
 
 __pycache__/
+
+frontend/node_modules/

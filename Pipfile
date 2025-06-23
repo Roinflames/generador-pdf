@@ -10,12 +10,12 @@ seqdiag = "*"
 reportlab = "*"
 pillow = "*"
 graphviz = "*"
-
 flask = "*"
 flask-login = "*"
 flask-wtf = "*"
 wtforms = "*"
 flask-sqlalchemy = "*"
+flask-cors = "*"
 
 [dev-packages]
 

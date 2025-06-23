@@ -19,7 +19,10 @@ def create_app():
 
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # opcional pero recomendado
-    
+    app.config.update(
+        SESSION_COOKIE_SAMESITE="Lax",  # o "None" con secure=True, pero en localhost Lax suele funcionar
+        SESSION_COOKIE_SECURE=False     # True sólo en HTTPS, para desarrollo pon False
+    )    
     CORS(app, supports_credentials=True, origins=["http://localhost:5173"])
 
     db.init_app(app)

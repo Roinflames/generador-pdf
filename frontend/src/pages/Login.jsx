@@ -1,8 +1,7 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import React from "react";
 
-export default function Login() {
+export default function Login({ setIsAuthenticated }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
@@ -16,7 +15,7 @@ export default function Login() {
       const res = await fetch("http://127.0.0.1:5000/api/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        credentials: "include", // 🔐 para que se guarde la cookie de sesión
+        credentials: "include", // para guardar cookie de sesión
         body: JSON.stringify({ username, password }),
       });
 
@@ -26,8 +25,9 @@ export default function Login() {
         throw new Error(data.error || "Error desconocido");
       }
 
-      alert("Login exitoso");
-      navigate("/"); // o a dashboard
+      // Login exitoso: actualizar estado global y redirigir
+      setIsAuthenticated(true);
+      navigate("/"); 
     } catch (err) {
       setErrorMsg(err.message);
     }

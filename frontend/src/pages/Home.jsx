@@ -2,11 +2,17 @@ import React from "react";
 
 export default function Home() {
   const handleLogout = async () => {
-    await fetch("http://127.0.0.1:5000/api/logout", {
-      method: "POST",
-      credentials: "include",
+    await fetch('http://127.0.0.1:5000/api/logout', {
+      method: 'POST',
+      credentials: 'include'
+    })
+    .then(res => {
+      if (res.ok) {
+        window.location.href = '/login';  // redirige el navegador
+      } else {
+        console.log("Error al cerrar sesión");
+      }
     });
-    window.location.href = "/login";
   };
 
   return (

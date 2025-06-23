@@ -1,0 +1,30 @@
+[
+    {
+        "cliente": "Juan Pérez",
+        "fecha": "2025-04-06",
+        "medio": "WhatsApp",
+        "consulta": "Convenio de pago",
+        "estado": "Resuelta"
+    },
+    {
+        "cliente": "Ana López",
+        "fecha": "2025-04-07",
+        "medio": "Web",
+        "consulta": "Consulta deuda",
+        "estado": "Pendiente"
+    },
+    {
+        "cliente": "Carlos Martínez",
+        "fecha": "2025-04-07",
+        "medio": "Teléfono",
+        "consulta": "Información general",
+        "estado": "En seguimiento"
+    },
+    {
+        "cliente": "Rodrigo Reyes",
+        "fecha": "2025-04-07",
+        "medio": "Teléfono",
+        "consulta": "Información general de un sistema que no es de la empresa, quiero mostrar la información de la deuda",
+        "estado": "En seguimiento"
+    }
+]
