@@ -18,7 +18,7 @@ os.makedirs(pdf_dir, exist_ok=True)
 os.makedirs(image_dir, exist_ok=True)
 
 # Ruta para visualizar el diagrama (vista previa)
-@diagrama_bp.route('/diagrama')
+@diagrama_bp.route('/')
 def diagrama_view():
     # Crear el diagrama de flujo con graphviz
     dot = graphviz.Digraph(comment='Business Flowchart')

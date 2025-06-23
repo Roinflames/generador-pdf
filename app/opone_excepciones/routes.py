@@ -4,7 +4,7 @@ import pdfkit
 import os
 import json
 
-@opone_excepciones_bp.route('/opone_excepciones_preview')
+@opone_excepciones_bp.route('/')
 def opone_excepciones_view():
     # TODO: obtener los datos necesarios para la vista a través de JSON
     # Ruta absoluta al archivo JSON

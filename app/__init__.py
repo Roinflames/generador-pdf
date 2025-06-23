@@ -39,10 +39,10 @@ def create_app():
     app.register_blueprint(auth_bp)
     app.register_blueprint(main_bp)
     app.register_blueprint(reconocimiento_bp, url_prefix='/reconocimiento')
-    app.register_blueprint(informe_bp, url_prefix='/informe')
+    app.register_blueprint(informe_bp, url_prefix='/generar_informe')
     app.register_blueprint(diagrama_bp, url_prefix='/diagrama')
-    app.register_blueprint(escritura_bp, url_prefix='/escritura')
-    app.register_blueprint(liquidacion_bp, url_prefix='/liquidacion')
+    app.register_blueprint(escritura_bp, url_prefix='/escritura_compraventa')
+    app.register_blueprint(liquidacion_bp, url_prefix='/liquidacion_de_persona_natural')
     app.register_blueprint(delega_bp, url_prefix='/delega_poder')
     app.register_blueprint(opone_excepciones_bp, url_prefix='/opone_excepciones')
 

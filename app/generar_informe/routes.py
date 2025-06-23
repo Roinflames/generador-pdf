@@ -17,7 +17,7 @@ with open(file_path, encoding='utf-8') as f:
 # Configurar el entorno Jinja2, con la ruta correcta de las plantillas dentro del blueprint
 env = jinja2.Environment(loader=jinja2.FileSystemLoader(os.path.join(current_dir, 'templates')))
 
-@generar_informe.route('/generar_informe')
+@generar_informe.route('/')
 def generar_informe_view():
     # Renderizar la vista previa del informe con los datos
     fecha_actual = datetime.now().strftime('%Y-%m-%d')

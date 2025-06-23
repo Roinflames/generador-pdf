@@ -4,7 +4,7 @@ import pdfkit
 import os
 import json
 
-@escritura_bp.route('/escritura_compraventa')
+@escritura_bp.route('/')
 def escritura_compraventa_view():
     json_path = os.path.join(escritura_bp.root_path, 'static', 'data', 'escritura_compraventa_data.json')
     

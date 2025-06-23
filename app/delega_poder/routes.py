@@ -10,7 +10,7 @@ pdf_dir = os.path.join(os.path.dirname(__file__), 'static', 'pdfs')
 os.makedirs(pdf_dir, exist_ok=True)
 
 # Ruta para mostrar la vista previa
-@delega_bp.route('/delega_poder')
+@delega_bp.route('/')
 def delega_poder_view():
     json_path = os.path.join(delega_bp.root_path, 'static', 'data', 'delega_poder_data.json')
     

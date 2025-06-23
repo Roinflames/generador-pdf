@@ -42,7 +42,7 @@ def crea_pdf(ruta_template, info, rutacss=''):
     return ruta_salida  # Regresa la ruta del archivo PDF generado
 
 # Vista de Flask para mostrar el formulario o template de reconocimiento
-@reconocimiento.route('/reconocimiento')
+@reconocimiento.route('/')
 def reconocimiento_view():
     return render_template('template.html')
 
