@@ -8,7 +8,7 @@ import os
 
 # Obtener el directorio actual y construir la ruta del archivo JSON
 current_dir = os.path.dirname(__file__)  # Directorio actual
-file_path = os.path.join(current_dir, 'data', 'datos_contactos.json')  # Ubicación del archivo JSON
+file_path = os.path.join(current_dir, 'static', 'data', 'datos_contactos.json')  # Ubicación del archivo JSON
 
 # Cargar datos de ejemplo desde el archivo JSON
 with open(file_path, encoding='utf-8') as f:
@@ -22,6 +22,12 @@ def generar_informe_view():
     # Renderizar la vista previa del informe con los datos
     fecha_actual = datetime.now().strftime('%Y-%m-%d')
     tipo_informe = 2  # Cambia esto según el informe que quieras generar
+
+    # json_path = os.path.join(generar_informe.root_path, 'static', 'data', 'datos_contactos.json')
+    with open(file_path, 'r', encoding='utf-8') as f:
+        contactos_data = json.load(f)
+    
+    contactos = contactos_data.get("contactos", [])
 
     if tipo_informe == 1:
         template = env.get_template('template_contactos.html')  # Tabla de contactos

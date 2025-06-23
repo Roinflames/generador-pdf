@@ -1,0 +1,18 @@
+{
+  "contactos": [
+    {
+      "cliente": "Juan Pérez",
+      "fecha": "2025-06-23",
+      "medio": "WhatsApp",
+      "consulta": "Solicitud de escritura de compraventa",
+      "estado": "pendiente"
+    },
+    {
+      "cliente": "Ana Rodríguez",
+      "fecha": "2025-06-22",
+      "medio": "Correo",
+      "consulta": "Consulta sobre delegación de poder",
+      "estado": "atendido"
+    }
+  ]
+}
