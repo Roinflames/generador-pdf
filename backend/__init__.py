@@ -38,6 +38,7 @@ def create_app():
     from .liquidacion_de_persona_natural import liquidacion_bp as liquidacion_bp
     from .delega_poder import delega_bp as delega_bp
     from .opone_excepciones import opone_excepciones_bp as opone_excepciones_bp
+    from .patrocinio_de_poder import patrocinio_de_poder_bp as patrocinio_de_poder_bp
 
     app.register_blueprint(auth_bp)
     app.register_blueprint(main_bp)
@@ -48,5 +49,7 @@ def create_app():
     app.register_blueprint(liquidacion_bp, url_prefix='/liquidacion_de_persona_natural')
     app.register_blueprint(delega_bp, url_prefix='/delega_poder')
     app.register_blueprint(opone_excepciones_bp, url_prefix='/opone_excepciones')
+    app.register_blueprint(patrocinio_de_poder_bp, url_prefix='/patrocinio_de_poder')
+    
 
     return app

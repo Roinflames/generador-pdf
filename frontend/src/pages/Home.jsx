@@ -32,7 +32,7 @@ export default function Home() {
         <li><a href="http://127.0.0.1:5000/liquidacion_de_persona_natural"><button>Liquidación de Persona Natural</button></a></li>
         <li><a href="http://127.0.0.1:5000/reconocimiento"><button>Reconocimiento de Firma</button></a></li>
         <li><a href="http://127.0.0.1:5000/opone_excepciones"><button>Escrito Opone Excepciones</button></a></li>
-        <li><a href="http://127.0.0.1:5000/"><button>Nuevo Documento</button></a></li>
+        <li><a href="http://127.0.0.1:5000/patrocinio_de_poder"><button>Patrocinio de poder</button></a></li>
       </ul>
     </div>
   );
