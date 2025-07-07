@@ -7,7 +7,7 @@ db = SQLAlchemy()
 login_manager = LoginManager()
 login_manager.login_view = 'auth.login'
 
-from app.models import User  # asegúrate que la ruta sea correcta
+from backend.models import User  # asegúrate que la ruta sea correcta
 
 @login_manager.user_loader
 def load_user(user_id):
