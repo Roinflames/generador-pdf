@@ -1,51 +1,49 @@
-from flask import render_template, redirect, url_for, flash, request, jsonify
-from flask_login import login_user, logout_user, login_required, current_user
-from . import auth
+from flask import request, jsonify, Blueprint
+from werkzeug.security import check_password_hash
+from flask_jwt_extended import (
+    create_access_token,
+    jwt_required,
+    get_jwt_identity
+)
 from ..models import User
 from .. import db
-from .forms import LoginForm 
 
-@auth.route('/api/me')
+auth = Blueprint("auth", __name__)
+
+# 👤 Obtener datos del usuario autenticado
+@auth.route('/api/me', methods=['GET', 'OPTIONS'])
 def me():
-    if current_user.is_authenticated:
-        return {
+    # Ahora la ruta GET queda protegida con jwt_required:
+    @jwt_required()
+    def protected():
+        current_user = get_jwt_identity()
+        return jsonify({
             "authenticated": True,
-            "username": current_user.username,
-            "user_id": current_user.id
-        }
-    else:
-        return {"authenticated": False}, 401
-    
-@auth.route('/api/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'GET':
-        form = LoginForm()
-        return render_template('login.html', form=form)
+            "username": current_user['username'],
+            "user_id": current_user['id']
+        })
 
-    # POST
+    return protected()
+
+# 🔐 Login con JWT
+@auth.route('/api/login', methods=['POST', 'OPTIONS'])
+def login():
+    # Aquí solo se ejecuta para POST
     data = request.get_json()
     username = data.get('username')
     password = data.get('password')
 
     user = User.query.filter_by(username=username).first()
+
     if user and user.check_password(password):
-        login_user(user)
-        return jsonify({"message": "Login exitoso", "user_id": user.id})
+        access_token = create_access_token(identity={"id": user.id, "username": user.username})
+        return jsonify({"access_token": access_token}), 200
     else:
         return jsonify({"error": "Credenciales inválidas"}), 401
 
-@auth.route('/api/logout', methods=['POST'])
-@login_required
-def logout():
-    logout_user()
-    return jsonify({"message": "Sesión cerrada"})
-
-@auth.route('/api/register', methods=['GET', 'POST'])
+# 🧾 Registro de usuario
+@auth.route('/api/register', methods=['POST', 'OPTIONS'])
 def register():
-    if request.method == 'GET':
-        return render_template('register.html')
-
-    # POST
     data = request.get_json()
     username = data.get('username')
     password = data.get('password')
@@ -58,4 +56,4 @@ def register():
     db.session.add(user)
     db.session.commit()
 
-    return jsonify({"message": "Usuario registrado correctamente"})
+    return jsonify({"message": "Usuario registrado correctamente"}), 201

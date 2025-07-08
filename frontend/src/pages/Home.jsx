@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
 export default function Home() {
   const [openMain, setOpenMain] = useState([]);
   const [openSubs, setOpenSubs] = useState([]);
+  const navigate = useNavigate();
 
   const toggleMain = (main) => {
     setOpenMain((prev) =>
@@ -16,12 +18,17 @@ export default function Home() {
     );
   };
 
-  const handleLogout = async () => {
-    await fetch("http://127.0.0.1:5000/api/logout", {
-      method: "POST",
-      credentials: "include",
-    });
-    window.location.href = "/login";
+  // const handleLogout = async () => {
+  //   await fetch("http://127.0.0.1:5000/api/logout", {
+  //     method: "POST",
+  //     credentials: "include",
+  //   });
+  //   window.location.href = "/login";
+  // };
+
+  const handleLogout = () => {
+    localStorage.removeItem('token'); // o el nombre que uses
+    navigate('/login');
   };
 
   const menu = {

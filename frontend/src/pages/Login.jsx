@@ -24,13 +24,15 @@ export default function Login({ setIsAuthenticated }) {
       const res = await fetch("http://127.0.0.1:5000/api/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        credentials: "include",
         body: JSON.stringify({ username, password }),
       });
 
       const data = await res.json();
 
       if (!res.ok) throw new Error(data.error || "Error desconocido");
+
+      // Guarda el token JWT
+      localStorage.setItem("token", data.access_token);
 
       if (remember) {
         localStorage.setItem("lastUsername", username);
@@ -44,6 +46,35 @@ export default function Login({ setIsAuthenticated }) {
       setErrorMsg(err.message);
     }
   };
+
+  // const handleLogin = async (e) => {
+  //   e.preventDefault();
+  //   setErrorMsg("");
+
+  //   try {
+  //     const res = await fetch("http://127.0.0.1:5000/api/login", {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       credentials: "include",
+  //       body: JSON.stringify({ username, password }),
+  //     });
+
+  //     const data = await res.json();
+
+  //     if (!res.ok) throw new Error(data.error || "Error desconocido");
+
+  //     if (remember) {
+  //       localStorage.setItem("lastUsername", username);
+  //     } else {
+  //       localStorage.removeItem("lastUsername");
+  //     }
+
+  //     setIsAuthenticated(true);
+  //     navigate("/");
+  //   } catch (err) {
+  //     setErrorMsg(err.message);
+  //   }
+  // };
 
   return (
     <div style={outerContainer}>

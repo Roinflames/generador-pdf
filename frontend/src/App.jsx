@@ -9,20 +9,34 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-  fetch("http://127.0.0.1:5000/api/me", { credentials: "include" })
-    .then(res => {
-      if (res.ok) {
-        setIsAuthenticated(true);
-      } else if (res.status === 401) {
+    const checkSession = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
         setIsAuthenticated(false);
-      } else {
-        throw new Error("Error inesperado");
+        return;
       }
-    })
-    .catch(() => setIsAuthenticated(false));
-}, []);
 
-  
+      try {
+        const res = await fetch("http://127.0.0.1:5000/api/me", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!res.ok) throw new Error("Token inválido");
+
+        const data = await res.json();
+        console.log("Usuario autenticado:", data.username);
+        setIsAuthenticated(true);
+      } catch (err) {
+        console.warn("No autenticado:", err.message);
+        setIsAuthenticated(false);
+      }
+    };
+
+    checkSession();
+  }, []);
+
   return (
     <BrowserRouter>
       <Routes>

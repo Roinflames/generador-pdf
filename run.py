@@ -1,8 +1,14 @@
 from backend import create_app, db
 from backend.models import User
+from flask import Flask, request  # agrega request aquí
 
 app = create_app()
 
+@app.before_request
+def before_request_func():
+    if request.method == 'OPTIONS':
+        return '', 200
+    
 with app.app_context():
     db.create_all()
     print("✅ Base de datos creada")
