@@ -3,7 +3,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Login from "./pages/Login";
 import Home from "./pages/Home"; // 👈 importa el nuevo componente
+
 import PrivateRoute from "./components/PrivateRoute";
+import DelegacionPDF from './components/delega_poder.jsx';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -50,6 +52,14 @@ function App() {
           }
         />
         {/* otras rutas */}
+        <Route
+          path="/delegacion_poder"
+          element={
+            <PrivateRoute isAuthenticated={isAuthenticated}>
+              <DelegacionPDF />
+            </PrivateRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

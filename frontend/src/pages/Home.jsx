@@ -18,16 +18,8 @@ export default function Home() {
     );
   };
 
-  // const handleLogout = async () => {
-  //   await fetch("http://127.0.0.1:5000/api/logout", {
-  //     method: "POST",
-  //     credentials: "include",
-  //   });
-  //   window.location.href = "/login";
-  // };
-
   const handleLogout = () => {
-    localStorage.removeItem('token'); // o el nombre que uses
+    localStorage.removeItem('token');
     navigate('/login');
   };
 
@@ -38,7 +30,7 @@ export default function Home() {
         { label: "Escritura de Compraventa", url: "http://127.0.0.1:5000/escritura_compraventa" },
       ],
       Poder: [
-        { label: "Delegación de Poder", url: "http://127.0.0.1:5000/delega_poder" },
+        { label: "Delegación de Poder", url: "/delegacion_poder", internal: true },
         { label: "Patrocinio de Poder", url: "http://127.0.0.1:5000/patrocinio_de_poder" },
         { label: "Reconocimiento de Firma", url: "http://127.0.0.1:5000/reconocimiento" },
       ],
@@ -112,14 +104,23 @@ export default function Home() {
                     {links.map((link, i) => (
                       <li key={i}>
                         {link.url ? (
-                          <a
-                            href={link.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            style={{ textDecoration: "none", color: "#2980b9" }}
-                          >
-                            {link.label}
-                          </a>
+                          link.internal ? (
+                            <RouterLink
+                              to={link.url}
+                              style={{ textDecoration: "none", color: "#2980b9" }}
+                            >
+                              {link.label}
+                            </RouterLink>
+                          ) : (
+                            <a
+                              href={link.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              style={{ textDecoration: "none", color: "#2980b9" }}
+                            >
+                              {link.label}
+                            </a>
+                          )
                         ) : (
                           <span style={{ color: "#999", fontStyle: "italic" }}>
                             {link.label}
